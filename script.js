@@ -31,7 +31,7 @@ const Transactions = [
     { 
         id:4,
         description:'Investimentos', 
-        amount: 20019,
+        amount: 200019,
         date:'11/09/2021',
     }, 
     { 
