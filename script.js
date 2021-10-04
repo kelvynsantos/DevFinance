@@ -48,25 +48,34 @@ const Transactions = [
     },
 ]
 const Transaction = { 
+    all: Transactions,  
+
+    add(transaction){ 
+        Transaction.all.push(transaction) 
+        console.log(Transaction.all)
+    }, 
+
     incomes() {
         let income = 0; 
 
-        Transactions.forEach(transaction => { 
+        Transaction.all.forEach(transaction => { 
          if(transaction.amount > 0){
               income += transaction.amount;
          } 
         })
         return income
-    }, 
+    },
+      
     expenses() { //somar as saídas 
         let expense = 0;
-        Transactions.forEach(transaction => { 
+        Transaction.all.forEach(transaction => { 
             if(transaction.amount < 0){
                 expense += transaction.amount;
             }
         })
         return expense     
     },
+     
     total(){ //entradas - saídas 
         return Transaction.incomes() + Transaction.expenses()
     }
@@ -132,4 +141,11 @@ Transactions.forEach(function(transaction){
      DOM.addTransaction(transaction)
 })  
  
-DOM.updateBalance()
+DOM.updateBalance() 
+ 
+Transaction.add({
+     id:23,
+     description:'fjkhjkf', 
+     amount:3432, 
+     date:'21/02/2021'
+})
