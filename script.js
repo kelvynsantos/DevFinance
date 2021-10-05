@@ -139,7 +139,7 @@ const Utils = {
  
 const App ={ 
     init(){
-         Transaction.all.forEach(transaction=> { 
+         Transaction.all.forEach(Transaction=> { 
              DOM.addTransaction(Transaction)}) 
           
          DOM.updateBalance()
