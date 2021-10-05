@@ -135,17 +135,42 @@ const Utils = {
         })
         return signal + value
     }
-}
-//DOM.addTransaction(Transactions[0]) 
-Transactions.forEach(function(transaction){
-     DOM.addTransaction(transaction)
-})  
+} 
  
-DOM.updateBalance() 
+const App ={ 
+    init(){
+         Transaction.all.forEach(transaction=> { 
+             DOM.addTransaction(Transaction)}) 
+          
+         DOM.updateBalance()
+    }, 
+    reload(){ 
+        App.init()
+    }, 
+    reload() { 
+        App.init()
+    },
+} 
  
-Transaction.add({
-     id:23,
-     description:'fjkhjkf', 
-     amount:3432, 
-     date:'21/02/2021'
+App.init() 
+ 
+Transaction.add({ 
+    id:39, 
+    description:'ola',
+    amount:2000,
+     date:"12/12/2021"
+
 })
+//DOM.addTransaction(Transactions[0]) 
+// Transactions.forEach(function(transaction){
+//      DOM.addTransaction(transaction)
+// })  
+ 
+// DOM.updateBalance() 
+ 
+// Transaction.add({
+//      id:23,
+//      description:'fjkhjkf', 
+//      amount:3432, 
+//      date:'21/02/2021'
+// })
