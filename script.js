@@ -9,52 +9,49 @@ const Modal = {
         document.querySelector('.modal-overlay').classList.remove('active')
     }
 } 
-const Transactions = [ 
-    {
-        id:1,
-        description:'Luz',
-        amount:-50000,
-        date:'23/01/2021',    
-    },
-    {
-        id:2,
-        description:'Website',
-        amount:500000,
-        date:'31/9/2021', 
-    },
-    {
-        id:3,
-        description:'Internet',
-        amount:-23500,
-        date:'11/08/2021',
-    }, 
-    { 
-        id:4,
-        description:'Investimentos', 
-        amount: 200019,
-        date:'11/09/2021',
-    }, 
-    { 
-        id:5, 
-        description:'Salário',
-        amount:1038200,
-        date:'01/10/2021',
-    },
-    {
-         id:6, 
-         description:"Aluguel", 
-         amount:-150300,
-         date:'01/10/2021', 
-    },
-]
+// const Transactions = 
 const Transaction = { 
-    all: Transactions,  
+    all: [ 
+        {
+            description:'Luz',
+            amount:-50000,
+            date:'23/01/2021',    
+        },
+        {
+            description:'Website',
+            amount:500000,
+            date:'31/9/2021', 
+        },
+        {
+            description:'Internet',
+            amount:-23500,
+            date:'11/08/2021',
+        }, 
+        { 
+            description:'Investimentos', 
+            amount: 200019,
+            date:'11/09/2021',
+        }, 
+        { 
+            description:'Salário',
+            amount:1038200,
+            date:'01/10/2021',
+        },
+        {
+             description:"Aluguel", 
+             amount:-150300,
+             date:'01/10/2021', 
+        },
+    ],  
 
     add(transaction){ 
         Transaction.all.push(transaction) 
         console.log(Transaction.all)
     }, 
-
+    remove(index) { 
+        Transaction.all.splice(index,1) //splice -> Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements. 
+        App.reload()
+    },
     incomes() {
         let income = 0; 
 
@@ -118,6 +115,10 @@ const DOM = {
          
         document.getElementById('totalDisplay'). 
         innerHTML = Utils.formatCurrency(Transaction.total())
+     }, 
+      
+     clearTransactions(){ 
+         DOM.transactionsContainer.innerHTML=""
      }
 
 } 
@@ -136,7 +137,26 @@ const Utils = {
         return signal + value
     }
 } 
- 
+const Form = { 
+    validateField(){
+         console.log('Validar os campos')
+    },
+     formatData(){
+        console.log('formatar os campos')        
+     },
+    submit(event) { 
+        event.preventDefault() 
+         
+        //verificar se todas as informações foram preenchidas  
+        Form.validateField()
+        //formatar os dados salvos 
+        Form.formatData()
+        // salvar 
+        //apagar os dados do formulario 
+        //modal feche 
+        //atualizar a aplicacao
+    }
+}
 const App ={ 
     init(){
          Transaction.all.forEach(Transaction=> { 
@@ -147,7 +167,8 @@ const App ={
     reload(){ 
         App.init()
     }, 
-    reload() { 
+    reload() {
+        DOM.clearTransactions() 
         App.init()
     },
 } 
@@ -155,11 +176,9 @@ const App ={
 App.init() 
  
 Transaction.add({ 
-    id:39, 
     description:'ola',
     amount:2000,
-     date:"12/12/2021"
-
+     date:"12/12/2021",
 })
 //DOM.addTransaction(Transactions[0]) 
 // Transactions.forEach(function(transaction){
@@ -174,3 +193,4 @@ Transaction.add({
 //      amount:3432, 
 //      date:'21/02/2021'
 // })
+// Transaction.remove(0)
