@@ -138,6 +138,9 @@ const Utils = {
     }
 } 
 const Form = { 
+    description: document.querySelector('input#description'), 
+    amount: document.querySelector('input#amount'), 
+    date: document.querySelector('input#date'),
     validateField(){
          console.log('Validar os campos')
     },
@@ -152,8 +155,11 @@ const Form = {
         //formatar os dados salvos 
         Form.formatData()
         // salvar 
-        //apagar os dados do formulario 
+         
+        //apagar os dados do formulario  
+
         //modal feche 
+         
         //atualizar a aplicacao
     }
 }
