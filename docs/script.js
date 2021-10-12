@@ -46,7 +46,7 @@ const Transaction = {
 
     add(transaction){ 
         Transaction.all.push(transaction) 
-        console.log(Transaction.all)
+        // console.log(Transaction.all)
     }, 
     remove(index) { 
         Transaction.all.splice(index,1) //splice -> Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements. 
@@ -124,8 +124,13 @@ const DOM = {
 } 
 
 const Utils = {
-    formatAmount(value){ 
-    console.log(value)
+    formatAmount(value){  
+        value = Number(value) * 100
+        return value
+    }, 
+    formatDate(date) {
+        const splittedDate = date.split("-")
+        return `${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`
     },
     formatCurrency(value){ 
         // console.log(value) 
@@ -160,13 +165,16 @@ const Form = {
         // console.log('formatar os campos')         
         let {description, amount, date} = Form.getValues() 
          
-        amount = Utils.formatAmount(amount)
+        amount = Utils.formatAmount(amount) 
+
+        date = Utils.formatDate(date) 
+        console.log(date)
      },
     submit(event) { 
         event.preventDefault() 
-         
+         try {
         //verificar se todas as informações foram preenchidas  
-        Form.validateFields()
+        // Form.validateFields()
         //formatar os dados salvos 
         Form.formatValues()
         // salvar 
@@ -176,6 +184,10 @@ const Form = {
         //modal feche 
          
         //atualizar a aplicacao
+         }catch(error) {
+              alert(error.message)
+         }
+
     }
 }
 const App ={ 
