@@ -124,6 +124,9 @@ const DOM = {
 } 
 
 const Utils = {
+    formatAmount(value){ 
+    console.log(value)
+    },
     formatCurrency(value){ 
         // console.log(value) 
         const signal = Number(value) < 0 ? "-" : "" 
@@ -153,16 +156,19 @@ const Form = {
     validateField(){
          console.log('Validar os campos')
     },
-     formatData(){
-        console.log('formatar os campos')        
+     formatValues(){
+        // console.log('formatar os campos')         
+        let {description, amount, date} = Form.getValues() 
+         
+        amount = Utils.formatAmount(amount)
      },
     submit(event) { 
         event.preventDefault() 
          
         //verificar se todas as informações foram preenchidas  
-        Form.validateField()
+        Form.validateFields()
         //formatar os dados salvos 
-        Form.formatData()
+        Form.formatValues()
         // salvar 
          
         //apagar os dados do formulario  
