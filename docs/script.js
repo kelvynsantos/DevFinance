@@ -144,7 +144,8 @@ const Utils = {
         })
         return signal + value
     }
-} 
+}  
+
 const Form = { 
     description: document.querySelector('input#description'), 
     amount: document.querySelector('input#amount'), 
@@ -158,9 +159,16 @@ const Form = {
         } 
     },
      
-    validateField(){
-         console.log('Validar os campos')
+    validateFields(){
+         const { description,amount, date} = Form.getValues() 
+
+          if(description.trim() === "" ||  
+          amount.trim() === "" ||  
+          date.trim() === "") { 
+              throw new error ("Por favor, preencha todos os campos")
+          }
     },
+     
      formatValues(){
         // console.log('formatar os campos')         
         let {description, amount, date} = Form.getValues() 
@@ -168,23 +176,34 @@ const Form = {
         amount = Utils.formatAmount(amount) 
 
         date = Utils.formatDate(date) 
-        console.log(date)
+        return {
+             description, 
+             amount, 
+             date
+        }
      },
+ 
+      clearFields(){ 
+          Form.description.value = "" 
+          Form.amount.value = ""
+          Form.date.value = ""
+      }, 
+
     submit(event) { 
         event.preventDefault() 
-         try {
+          
+        try {
         //verificar se todas as informações foram preenchidas  
-        // Form.validateFields()
+        Form.validateFields()
         //formatar os dados salvos 
-        Form.formatValues()
+        const transaction = Form.formatValues()
         // salvar 
-         
+        Transaction.add(transaction)     
         //apagar os dados do formulario  
-
+        Form.clearFields()
         //modal feche 
-         
-        //atualizar a aplicacao
-         }catch(error) {
+        Modal.close() 
+         } catch(error) {
               alert(error.message)
          }
 
@@ -208,11 +227,11 @@ const App ={
  
 App.init() 
  
-Transaction.add({ 
-    description:'ola',
-    amount:2000,
-     date:"12/12/2021",
-})
+// Transaction.add({ 
+//     description:'ola',
+//     amount:2000,
+//      date:"12/12/2021",
+// })
 //DOM.addTransaction(Transactions[0]) 
 // Transactions.forEach(function(transaction){
 //      DOM.addTransaction(transaction)
